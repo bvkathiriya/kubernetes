@@ -16,7 +16,7 @@ pipeline {
       steps {
         container('kubectl') {
           withCredentials([file(credentialsId: 'kubernetes', variable: 'KUBECONFIG')]) {
-          #  sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" myweb.yaml'
+            
             sh 'kubectl apply -f react-demo.yaml'
             sh 'kubectl apply -f svc.yaml'
           }

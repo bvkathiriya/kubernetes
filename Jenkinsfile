@@ -12,17 +12,13 @@ pipeline {
 
     
 
-    stage('Deploy App to Kubernetes') {     
-      steps {
-        container('kubectl') {
-          withCredentials([file(credentialsId: 'kubernetes', variable: 'KUBECONFIG')]) {
-            
-            sh 'kubectl apply -f react-demo.yaml'
-            sh 'kubectl apply -f svc.yaml'
-          }
+    stage('K8S Deploy '){
+            steps{
+                sh kubernetesDeploy(configs:'react-demo.yml','svc.yaml',kubeconfigId:'kubernetes', enableConfigSubstitution:true)
+                
+            }
         }
-      }
-    }
+
 
   }
 

@@ -12,12 +12,14 @@ pipeline {
 
     
 
-    stage('Deploying into k8s'){
-            steps{
-                sh 'kubectl apply -f react-demo.yml'
-                sh 'kubectl apply -f svc.yml'
-            }
+   stage('Deploy to K8s') {
+      steps {
+        withKubeConfig([credentialsId: 'kubernetes']) {
+          sh 'kubectl apply -f react-demo.yaml'
+          sh 'kubectl apply -f svc.yaml'
         }
+      } 
+    }
 
 
   }

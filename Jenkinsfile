@@ -12,12 +12,12 @@ pipeline {
 
     
 
-    stage('K8S Deploy '){
-            steps{
-                sh kubernetesDeploy(configs:'react-demo.yml','svc.yaml',kubeconfigId:'kubernetes', enableConfigSubstitution:true)
-                
-            }
-        }
+   stage('Apply Kubernetes files') {
+    withKubeConfig([credentialsId: 'kubernetes', serverUrl: 'http://127.0.0.1:34047/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default']) {
+      sh 'kubectl apply -f react-demo.yaml'
+      sh 'kubectl apply -f svc.yaml'
+    }
+  }
 
 
   }

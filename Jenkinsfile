@@ -6,7 +6,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/bvkathiriya/kubernetes.git'
+        git branch: 'main', url: 'https://github.com/bvkathiriya/kubernetes.git'
       }
     }
 

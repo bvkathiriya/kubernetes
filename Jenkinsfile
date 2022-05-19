@@ -17,6 +17,7 @@ pipeline {
         withKubeConfig([credentialsId: 'kubernetes']) {
           sh 'kubectl apply -f react-demo.yaml'
           sh 'kubectl apply -f svc.yaml'
+          sh 'kubectl port-forward svc/demo-react-app 8090:3050'
         }
       } 
     }
